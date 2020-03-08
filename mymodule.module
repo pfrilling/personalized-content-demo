@@ -1,0 +1,20 @@
+<?php
+
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
+
+/**
+ * Implements hook_entity_base_field_info().
+ */
+function mymodule_entity_base_field_info(EntityTypeInterface $entity_type) {
+  if ($entity_type->id() === 'taxonomy_term') {
+    $fields['mymodule_term_status'] = BaseFieldDefinition::create('integer')
+      ->setName('mymodule_course_status')
+      ->setLabel(t('My Module Computed Status Field'))
+      ->setComputed(TRUE)
+      ->setClass('\Drupal\mymodule\Plugin\Field\TermStatusItemList')
+      ->setDisplayConfigurable('view', TRUE);
+
+    return $fields;
+  }
+}
